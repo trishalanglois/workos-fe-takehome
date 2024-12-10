@@ -4,7 +4,9 @@ Welcome to the WorkOS Frontend Take-Home Assignment!
 
 In this exercise, you'll implement the UI for a simple two-tab layout that lists users and roles. You will also add limited functionality to update users and roles.
 
-To get you started, we've included a [Figma design file](https://www.figma.com/design/fx1owLKquaBVfw6kt0Dy94/WorkOS---Frontend-Take-Home-Assignment?node-id=1-40&node-type=canvas&t=MiCSu7HNzqbeCLZ9-0) and a fully functional backend API. Keep in mind, you won’t need to implement all of the functionality implied by the design or backend API. Make sure to focus on the specific tasks outlined below.
+You should have recieved an invitation to view a Figma design file for the take-home assignment. If you haven't received and invitation email, please reach out to us.
+
+To get you started, we've also provided a fully functional backend API. Keep in mind, you won’t need to implement all of the functionality implied by the design or backend API. Make sure to focus on the specific tasks outlined below.
 
 Feel free to use any frontend framework and libraries you prefer — there’s no need to build everything from scratch. At WorkOS, we use [Radix Themes](https://www.radix-ui.com/), and it's perfectly fine if you want to leverage similar libraries. Just be ready to explain your decisions, including why you chose certain libraries and how they benefit the project.
 
@@ -33,9 +35,7 @@ Be sure to include a README that outlines what you'd improve or do differently i
 
 ## Design Reference
 
-Access the [Figma Design File](https://www.figma.com/design/fx1owLKquaBVfw6kt0Dy94/WorkOS---Frontend-Take-Home-Assignment?node-id=1-40&node-type=canvas&t=MiCSu7HNzqbeCLZ9-0) for the initial design of the "Users" tab.
-
-_**Note:** Please be sure to sign in to Figma. You only are only able to explore properties of the layers, frames, components, etc when signed in._
+Be sure to consult the Figma design file that you were invited to view. You'll need to sign-in to Figma to access the design, so you may need to create a Figma account.
 
 The design is a starting point — you'll need to fill in some details (e.g., loading states, error states, hover states). The "Roles" tab is not designed, so you'll infer the design based on what is provided for the "Users" tab.
 
