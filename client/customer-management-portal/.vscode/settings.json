@@ -1,0 +1,24 @@
+{
+  "editor.formatOnSave": true,
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "editor.codeActionsOnSave": {
+    "source.fixAll": "always"
+  },
+  "prettier.configPath": ".prettierrc",
+  "prettier.useTabs": false,
+  "editor.tabSize": 2,
+  "editor.renderWhitespace": "selection",
+  "editor.autoClosingBrackets": "languageDefined",
+  "files.autoSave": "onFocusChange",
+  "notebook.formatOnSave.enabled": true,
+  "editor.formatOnPaste": true,
+  "less.format.enable": false,
+  "eslint.format.enable": true,
+  "json.format.keepLines": true,
+  "eslint.codeActionsOnSave.rules": null,
+  "prettier.requireConfig": false,
+  "prettier.requirePragma": true,
+  "[typescriptreact]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  }
+}
