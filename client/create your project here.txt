@@ -1,1 +1,2 @@
 Init a new project with a framework of your choice.
+test add

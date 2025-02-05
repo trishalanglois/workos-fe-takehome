@@ -1,0 +1,7 @@
+{
+  "version": 3,
+  "sources": [],
+  "sections": [
+    {"offset": {"line": 1, "column": 0}, "map": {"version":3,"sources":["turbopack://[project]/src/app/page.scss.css"],"sourcesContent":["@import'@radix-ui/colors/purple.css';.accentButton{background-color:var(--purple-9);border-color:var(--purple-a3)}"],"names":[],"mappings":"AAAqC"}},
+    {"offset": {"line": 5, "column": 0}, "map": {"version":3,"sources":[],"names":[],"mappings":"A"}}]
+}
