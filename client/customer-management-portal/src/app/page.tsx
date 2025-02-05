@@ -64,7 +64,7 @@ export default function Home() {
               >
                 <Search />
 
-                <Button color={'purple'}>
+                <Button className="button">
                   <PlusIcon />
                   Add user
                 </Button>
@@ -87,5 +87,6 @@ export default function Home() {
   );
 }
 
-// TODO: extract Tabs.Content to Users and Roles components?
+// TODO: extract Tab Root, Search, Button into their own components
 // TODO: Figure out how to use the purple 9 accent color and add purple a3 for border
+// TODO: Extract styling
