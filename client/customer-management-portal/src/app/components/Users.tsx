@@ -1,5 +1,5 @@
 export default function Users() {
-  return (
-    <>Users!</>
-  )
+  // will make BE call
+  // render map of table rows
+  return <>Users!</>;
 }

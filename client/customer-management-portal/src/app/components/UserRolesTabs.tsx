@@ -5,6 +5,8 @@ import Users from './Users';
 import Roles from './Roles';
 
 export default function UserRolesTabs() {
+  // state in this component to hold whether users or roles is in focus
+  // will change when user clicks on either
   return (
     <Tabs.Root defaultValue="users">
       <Tabs.List size={'1'}>
