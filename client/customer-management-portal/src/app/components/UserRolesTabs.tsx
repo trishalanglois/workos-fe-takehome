@@ -9,7 +9,7 @@ export default function UserRolesTabs() {
   // will change when user clicks on either
   return (
     <Tabs.Root defaultValue="users">
-      <Tabs.List size={'1'}>
+      <Tabs.List size={'2'}>
         <Tabs.Trigger value="users">Users</Tabs.Trigger>
         <Tabs.Trigger value="roles">Roles</Tabs.Trigger>
       </Tabs.List>

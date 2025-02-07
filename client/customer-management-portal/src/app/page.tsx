@@ -9,11 +9,7 @@ export default function Home() {
     <Theme>
       <PageWrapper>
         <Container>
-          <Flex
-            direction={'column'}
-            gap={'9'}
-            style={{ border: '1px solid red' }}
-          >
+          <Flex direction={'column'} gap={'9'}>
             <UserRolesTabs />
           </Flex>
         </Container>
