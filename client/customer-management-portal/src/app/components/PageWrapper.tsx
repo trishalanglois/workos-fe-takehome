@@ -1,4 +1,4 @@
-import { Box } from '@radix-ui/themes';
+import { Box, Flex } from '@radix-ui/themes';
 
 export default function PageWrapper({
   children,
@@ -6,8 +6,10 @@ export default function PageWrapper({
   children: React.ReactNode;
 }) {
   return (
-    <Box display={'block'} py={'var(--space-7)'} px={'2'}>
-      {children}
-    </Box>
+    <Flex justify={'center'}>
+      <Box display={'block'} py={'var(--space-7)'} px={'2'} width={'850px'}>
+        {children}
+      </Box>
+    </Flex>
   );
 }
