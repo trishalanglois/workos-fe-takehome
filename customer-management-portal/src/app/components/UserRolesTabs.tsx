@@ -8,6 +8,7 @@ import React, { useEffect, useState } from 'react';
 import { fetchUsersWithRoles } from '../hooks/fetchUsersWithRoles';
 import { User } from '../types';
 import { InfoCircledIcon } from '@radix-ui/react-icons';
+import { request } from 'http';
 
 export default function UserRolesTabs() {
   const [toggleFocus, setToggleFocus] = useState('users');
@@ -38,17 +39,27 @@ export default function UserRolesTabs() {
   useEffect(() => {
     const fetchTableData = async () => {
       try {
-        const response = await fetchUsersWithRoles();
-        setData(response);
+        const result = await fetchUsersWithRoles();
+  
+        if (result) {
+          const { usersWithRoles, hasError } = result;
+  
+          setData(usersWithRoles);
+  
+          if (hasError) {
+            setRequestError(hasError);
+          }
+        }
       } catch (error) {
-        setRequestError(true);
-        console.error('Error fetching data:', error);
-      } finally {
-        setLoading(false);
+        console.error("Error fetching table data:", error);
       }
     };
+  
     fetchTableData();
+    setLoading(false)
   }, []);
+
+  console.log('TL parent data -->', tableData)
 
   return (
     <Tabs.Root defaultValue="users">
@@ -74,12 +85,12 @@ export default function UserRolesTabs() {
       </Flex>
 
       {requestError && (
-        <Callout.Root color="red">
+        <Callout.Root color="red" mb={"5"}>
           <Callout.Icon>
             <InfoCircledIcon />
           </Callout.Icon>
           <Callout.Text>
-            There was an error with your request. Please try again.
+            Some of your information is missing. Please refresh the page.
           </Callout.Text>
         </Callout.Root>
       )}

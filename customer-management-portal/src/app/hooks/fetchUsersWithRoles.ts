@@ -17,9 +17,13 @@ const fetchRoleName = async (roleId: string) => {
 
 export const fetchUsersWithRoles = async () => {
   const usersWithRoles: User[] = [];
+  let hasError = false;
+
   try {
     const usersResponse = await axios.get(USERS_API_URL);
     const { data: users } = usersResponse.data;
+
+    console.log('TL data -->', users)
 
     const usersWithRolesPromises = users.map(
       async (user: User) => {
@@ -33,6 +37,7 @@ export const fetchUsersWithRoles = async () => {
           } else {
             console.error('Unexpected error:', error);
           }
+          hasError = true
           usersWithRoles.push({
             ...user,
             roleName: null,
@@ -43,10 +48,9 @@ export const fetchUsersWithRoles = async () => {
 
     await Promise.all(usersWithRolesPromises);
 
-    return usersWithRoles;
+    return {usersWithRoles, hasError};
   } catch (error) {
     if (axios.isAxiosError(error)) {
-      throw error;
-    }
+      return { usersWithRoles: [], hasError: true };    }
   }
 };
