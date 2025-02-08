@@ -1,6 +1,6 @@
 import { Avatar, Flex, Table, Text } from '@radix-ui/themes';
 import { DataTableProps, User } from '../types';
-import { nameGenerator, nameInitialGenerator } from '../utils';
+import { formatDate, nameGenerator, nameInitialGenerator } from '../utils';
 
 export default function DataTable({ dataType, tableData }: DataTableProps) {
 
@@ -37,7 +37,7 @@ export default function DataTable({ dataType, tableData }: DataTableProps) {
               </Flex>
             </Table.RowHeaderCell>
             <Table.Cell>{user.roleName}</Table.Cell>
-            <Table.Cell>{user.createdAt}</Table.Cell>
+            <Table.Cell>{formatDate(user.createdAt)}</Table.Cell>
             <Table.Cell>Insert Button</Table.Cell>
           </Table.Row>
         ))}
