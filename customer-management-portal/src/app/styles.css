@@ -1,0 +1,7 @@
+@import '@radix-ui/colors/purple.css';
+@import '@radix-ui/colors/purple-alpha.css';
+
+.accentButton {
+  background-color: var(--purple-9);
+  border-color: var(--purple-a3);
+}
