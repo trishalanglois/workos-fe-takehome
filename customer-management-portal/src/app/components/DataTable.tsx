@@ -1,23 +1,32 @@
 import { Avatar, Flex, Table, Text } from '@radix-ui/themes';
 
-export default function Users() {
-  // will make BE call
-  // render map of table rows
+type DataTableProps = {
+  dataType: string;
+};
 
+export default function DataTable({ dataType }: DataTableProps) {
   // update avatar fallback to initials of user
   // update avatar src to user img
-  // test untracked files and gitignore
+
+  // create objects with user column headers and role column headers to use dynamically. can use bracket notation to target the values
+
+  const columnHeaders: Record<string, string[]> = {
+    users: ['User', 'Role', 'Joined', ''],
+    roles: ['Placeholder1', 'Placeholder2', 'Placeholder3', '']
+  };
+
   return (
     <Table.Root variant="surface">
       <Table.Header>
         <Table.Row>
-          <Table.ColumnHeaderCell>User</Table.ColumnHeaderCell>
-          <Table.ColumnHeaderCell>Role</Table.ColumnHeaderCell>
-          <Table.ColumnHeaderCell>Joined</Table.ColumnHeaderCell>
-          <Table.ColumnHeaderCell>Button column</Table.ColumnHeaderCell>
+          {/* put conditional here to wait for data */}
+          {columnHeaders[dataType].map((column: string) => (
+            <Table.ColumnHeaderCell key={column}>
+              {column}
+            </Table.ColumnHeaderCell>
+          ))}{' '}
         </Table.Row>
       </Table.Header>
-
       <Table.Body>
         <Table.Row>
           <Table.RowHeaderCell>
@@ -31,12 +40,10 @@ export default function Users() {
               <Text>Danilo Sousa</Text>
             </Flex>
           </Table.RowHeaderCell>
-
           <Table.Cell>Engineering</Table.Cell>
           <Table.Cell>November 9, 2015</Table.Cell>
           <Table.Cell>Insert Button</Table.Cell>
         </Table.Row>
-
         <Table.Row>
           <Table.RowHeaderCell>
             <Flex gap={'2'}>
@@ -48,7 +55,6 @@ export default function Users() {
           <Table.Cell>April 1, 2022</Table.Cell>
           <Table.Cell>Insert Button</Table.Cell>
         </Table.Row>
-
         <Table.Row>
           <Table.RowHeaderCell>
             <Flex gap={'2'}>
