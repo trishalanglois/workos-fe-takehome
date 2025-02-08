@@ -27,15 +27,10 @@ export default function UserRolesTabs() {
     return setFilteredData(filtered);
   };
 
-  // Search functionality
-  // onEnter fn
-  // filters through data
-  // returns data
   // if no data matches, show empty state
 
   // fetch data for roles table
 
-  // fetch data for users table, add toggleFocus to dependency array after roles is set up
   useEffect(() => {
     const fetchTableData = async () => {
       try {
@@ -52,14 +47,13 @@ export default function UserRolesTabs() {
         }
       } catch (error) {
         console.error("Error fetching table data:", error);
+      } finally {
+        setLoading(false)
       }
-    };
+    }
   
     fetchTableData();
-    setLoading(false)
   }, []);
-
-  console.log('TL parent data -->', tableData)
 
   return (
     <Tabs.Root defaultValue="users">

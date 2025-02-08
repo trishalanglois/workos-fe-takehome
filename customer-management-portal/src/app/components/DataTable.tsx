@@ -1,7 +1,6 @@
 import { Avatar, Flex, Table, Text } from '@radix-ui/themes';
 import { DataTableProps, User } from '../types';
 import { formatDate, nameGenerator, nameInitialGenerator } from '../utils';
-import { table } from 'console';
 
 export default function DataTable({ dataType, tableData }: DataTableProps) {
 

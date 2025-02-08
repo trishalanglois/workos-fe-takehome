@@ -23,8 +23,6 @@ export const fetchUsersWithRoles = async () => {
     const usersResponse = await axios.get(USERS_API_URL);
     const { data: users } = usersResponse.data;
 
-    console.log('TL data -->', users)
-
     const usersWithRolesPromises = users.map(
       async (user: User) => {
         try {
@@ -32,7 +30,6 @@ export const fetchUsersWithRoles = async () => {
           usersWithRoles.push({ ...user, roleName });
         } catch (error) {
           if (axios.isAxiosError(error) && error.response?.status === 500) {
-            // is there a way to return this so the parent can see there was an error?
             console.error('Error fetching role for user:', user, error);
           } else {
             console.error('Unexpected error:', error);
