@@ -7,7 +7,6 @@ import DataTable from './DataTable';
 import React, { useEffect, useState } from 'react';
 import { fetchUsersWithRoles } from '../hooks/fetchUsersWithRoles';
 import { User } from '../types';
-import { request } from 'http';
 import { InfoCircledIcon } from '@radix-ui/react-icons';
 
 export default function UserRolesTabs() {
@@ -16,6 +15,9 @@ export default function UserRolesTabs() {
   const [loading, setLoading] = useState(true); // Track loading state
   const [requestError, setRequestError] = useState(false);
 
+  // fetch data for roles table
+
+  // fetch data for users table, add toggleFocus to dependency array after roles is set up
   useEffect(() => {
     const fetchTableData = async () => {
       try {
@@ -30,8 +32,6 @@ export default function UserRolesTabs() {
     };
     fetchTableData();
   }, []);
-
-  console.log('TL final data -->', fetchUsersWithRoles());
 
   return (
     <Tabs.Root defaultValue="users">
@@ -66,9 +66,11 @@ export default function UserRolesTabs() {
           </Callout.Text>
         </Callout.Root>
       )}
-      
+
       {loading ? (
-        <Spinner size={"3"} loading={loading} />
+        <Flex justify={'center'}>
+          <Spinner size={'3'} loading={loading} />
+        </Flex>
       ) : (
         <Box>
           <Tabs.Content value="users">
