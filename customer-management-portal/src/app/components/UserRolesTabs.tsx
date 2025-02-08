@@ -1,33 +1,37 @@
 'use client';
 
-import { Box, Flex, Spinner, Tabs } from '@radix-ui/themes';
+import { Box, Callout, Flex, Spinner, Tabs } from '@radix-ui/themes';
 import Search from './Search';
 import AccentButton from './AccentButton';
 import DataTable from './DataTable';
-import axios from 'axios';
 import React, { useEffect, useState } from 'react';
+import { fetchUsersWithRoles } from '../hooks/fetchUsersWithRoles';
+import { User } from '../types';
+import { request } from 'http';
+import { InfoCircledIcon } from '@radix-ui/react-icons';
 
 export default function UserRolesTabs() {
   const [toggleFocus, setToggleFocus] = useState('users');
-  const [tableData, setData] = useState([]);
+  const [tableData, setData] = useState<User[]>([]);
   const [loading, setLoading] = useState(true); // Track loading state
+  const [requestError, setRequestError] = useState(false);
 
   useEffect(() => {
-    const fetchData = async () => {
+    const fetchTableData = async () => {
       try {
-        const response = await axios.get(
-          `http://localhost:3002/${toggleFocus}`,
-        );
-        setData(response.data.data);
+        const response = await fetchUsersWithRoles();
+        setData(response);
       } catch (error) {
+        setRequestError(true);
         console.error('Error fetching data:', error); // show error toast here?
       } finally {
         setLoading(false);
       }
     };
-
-    fetchData();
+    fetchTableData();
   }, []);
+
+  console.log('TL final data -->', fetchUsersWithRoles());
 
   return (
     <Tabs.Root defaultValue="users">
@@ -51,8 +55,20 @@ export default function UserRolesTabs() {
         <Search />
         <AccentButton displayText="Add user" />
       </Flex>
+
+      {requestError && (
+        <Callout.Root color="red">
+          <Callout.Icon>
+            <InfoCircledIcon />
+          </Callout.Icon>
+          <Callout.Text>
+            There was an error with your request. Please try again.
+          </Callout.Text>
+        </Callout.Root>
+      )}
+      
       {loading ? (
-        <Spinner loading={loading} />
+        <Spinner size={"3"} loading={loading} />
       ) : (
         <Box>
           <Tabs.Content value="users">

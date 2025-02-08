@@ -5,6 +5,7 @@ export type User = {
     last: string,
     photo: string,
     roleId: string,
+    roleName: string,
     updatedAt: string
   }
   
