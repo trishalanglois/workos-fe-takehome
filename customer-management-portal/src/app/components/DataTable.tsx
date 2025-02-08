@@ -1,11 +1,24 @@
 import { Avatar, Flex, Table, Text } from '@radix-ui/themes';
 
+type User = {
+  createdAt: string,
+  first: string,
+  id: string,
+  last: string,
+  photo: string,
+  roleId: string,
+  updatedAt: string
+}
+
 type DataTableProps = {
   dataType: string;
-  data: any
+  tableData: User[]
 };
 
-export default function DataTable({ dataType, data }: DataTableProps) {
+export default function DataTable({ dataType, tableData }: DataTableProps
+) {
+
+  console.log('TL BE data --> ', tableData)
   // update avatar fallback to initials of user
   // update avatar src to user img
 
@@ -16,7 +29,13 @@ export default function DataTable({ dataType, data }: DataTableProps) {
     roles: ['Placeholder1', 'Placeholder2', 'Placeholder3', '']
   };
 
-  console.log('TL data from BE -->', data)
+  const nameGenerator = (firstName: string, lastName: string) => {
+    return (`${firstName} ${lastName}`)
+  }
+
+  const nameInitialGenerator = (firstName: string, lastName: string) => {
+    return firstName.charAt(0), lastName.charAt(0)
+  }
 
   return (
     <Table.Root variant="surface">
@@ -31,7 +50,26 @@ export default function DataTable({ dataType, data }: DataTableProps) {
         </Table.Row>
       </Table.Header>
       <Table.Body>
-        <Table.Row>
+      {tableData.map((user: User, index: number) => (
+        <Table.Row key={index}>
+          <Table.RowHeaderCell>
+            <Flex gap={"2"}>
+              <Avatar
+                size="1"
+                radius="full"
+                src={user.photo || undefined}
+                fallback={user.photo || nameInitialGenerator(user.first, user.last)}
+              />
+              <Text>{nameGenerator(user.first, user.last)}</Text>
+            </Flex>
+          </Table.RowHeaderCell>
+          <Table.Cell>{user.roleId}</Table.Cell>
+          <Table.Cell>{user.createdAt}</Table.Cell>
+          <Table.Cell>Insert Button</Table.Cell>
+        </Table.Row>
+      ))}
+
+        {/* <Table.Row>
           <Table.RowHeaderCell>
             <Flex gap={'2'}>
               <Avatar
@@ -68,7 +106,7 @@ export default function DataTable({ dataType, data }: DataTableProps) {
           <Table.Cell>Sales</Table.Cell>
           <Table.Cell>July 4, 2012</Table.Cell>
           <Table.Cell>Insert Button</Table.Cell>
-        </Table.Row>
+        </Table.Row> */}
       </Table.Body>
     </Table.Root>
   );

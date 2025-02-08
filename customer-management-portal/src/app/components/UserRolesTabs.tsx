@@ -7,47 +7,37 @@ import DataTable from './DataTable';
 import axios from 'axios';
 import React, { useEffect, useState } from 'react';
 
-// async function getServerSideProps() {
-//   const response = axios.get(`${process.env.NEXT_PUBLIC_API_URL}/api/users`);
-//   return {
-//     props: {
-//       users: response,
-//     },
-//   };
-// }
-
 export default function UserRolesTabs() {
-  // state in this component to hold whether users or roles is in focus
-  // will change when user clicks on either
-  // make BE call here based on if users or state or in focus, make call
-  const [users, setUsers] = useState([]);
+  const [toggleFocus, setToggleFocus] = useState('users');
+  const [tableData, setData] = useState([])
   const [loading, setLoading] = useState(true); // Track loading state
 
   useEffect(() => {
-    // Define the async function inside the useEffect
-    const fetchUsers = async () => {
+    const fetchData = async () => {
       try {
-        const response = await axios.get("http://localhost:3002/users");
-        setUsers(response.data); // Set the users data
+        const response = await axios.get(`http://localhost:3002/${toggleFocus}`);
+        setData(response.data.data);
       } catch (error) {
-        console.error("Error fetching users:", error); // Handle errors
+        console.error("Error fetching data:", error); // show error toast here?
       } finally {
-        setLoading(false); // Once data is fetched, stop loading
+        setLoading(false); 
       }
     };
 
-    fetchUsers(); // Call the async function
-  }, []); // Empty dependency array means this runs once after the component mounts
+    fetchData(); 
+  }, []);
 
   if (loading) {
-    return <p>Loading...</p>; // Show loading state while waiting for data
+    return <p>Loading...</p>; // update with loader component
   }
+
+  console.log('data in parent -->', tableData)
 
   return (
     <Tabs.Root defaultValue="users">
       <Tabs.List size={'2'}>
-        <Tabs.Trigger value="users">Users</Tabs.Trigger>
-        <Tabs.Trigger value="roles">Roles</Tabs.Trigger>
+        <Tabs.Trigger value="users" name='users' onClick={(e) => setToggleFocus(e.currentTarget.name)}>Users</Tabs.Trigger>
+        <Tabs.Trigger value="roles" name='roles' onClick={(e) => setToggleFocus(e.currentTarget.name)}>Roles</Tabs.Trigger>
       </Tabs.List>
       <Flex gap={'var(--space-2)'} justify={'between'} py={'var(--space-5)'}>
         <Search />
@@ -55,10 +45,10 @@ export default function UserRolesTabs() {
       </Flex>
       <Box>
         <Tabs.Content value="users">
-          <DataTable dataType="users" data={users}/>
+          <DataTable dataType="users" tableData={tableData}/>
         </Tabs.Content>
         <Tabs.Content value="roles">
-          <DataTable dataType="roles" data={users}/>
+          <DataTable dataType="roles" tableData={tableData}/>
         </Tabs.Content>
       </Box>
     </Tabs.Root>
