@@ -6,6 +6,7 @@ export default function Users() {
 
   // update avatar fallback to initials of user
   // update avatar src to user img
+  // test untracked files and gitignore
   return (
     <Table.Root variant="surface">
       <Table.Header>
