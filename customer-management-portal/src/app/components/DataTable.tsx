@@ -1,26 +1,8 @@
 import { Avatar, Flex, Table, Text } from '@radix-ui/themes';
-
-type User = {
-  createdAt: string,
-  first: string,
-  id: string,
-  last: string,
-  photo: string,
-  roleId: string,
-  updatedAt: string
-}
-
-type DataTableProps = {
-  dataType: string;
-  tableData: User[]
-};
+import { DataTableProps, User } from '../types';
 
 export default function DataTable({ dataType, tableData }: DataTableProps
 ) {
-
-  console.log('TL BE data --> ', tableData)
-  // update avatar fallback to initials of user
-  // update avatar src to user img
 
   // create objects with user column headers and role column headers to use dynamically. can use bracket notation to target the values
 

@@ -31,8 +31,6 @@ export default function UserRolesTabs() {
     return <p>Loading...</p>; // update with loader component
   }
 
-  console.log('data in parent -->', tableData)
-
   return (
     <Tabs.Root defaultValue="users">
       <Tabs.List size={'2'}>
