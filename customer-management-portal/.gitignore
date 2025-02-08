@@ -55,3 +55,4 @@ next.config.ts
 .prettierrc
 eslint.config.mjs
 next.config.ts
+.DS_Store
