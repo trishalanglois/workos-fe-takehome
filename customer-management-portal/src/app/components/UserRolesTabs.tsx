@@ -14,6 +14,20 @@ export default function UserRolesTabs() {
   const [tableData, setData] = useState<User[]>([]);
   const [loading, setLoading] = useState(true); // Track loading state
   const [requestError, setRequestError] = useState(false);
+  // const [filteredData, setFilteredData] = useState(tableData);
+
+  const handleSearch = (searchTerm: string) => {
+    const filtered = tableData.filter((item) =>
+      item.first.toLowerCase().includes(searchTerm.toLowerCase())
+    );
+    return setData(filtered);
+  };
+
+  // Search functionality
+  // onEnter fn
+  // filters through data
+  // returns data
+  // if no data matches, show empty state
 
   // fetch data for roles table
 
@@ -52,7 +66,7 @@ export default function UserRolesTabs() {
         </Tabs.Trigger>
       </Tabs.List>
       <Flex gap={'var(--space-2)'} justify={'between'} py={'var(--space-5)'}>
-        <Search />
+        <Search onSearch={handleSearch}/>
         <AccentButton displayText="Add user" />
       </Flex>
 

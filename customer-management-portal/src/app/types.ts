@@ -13,3 +13,7 @@ export type User = {
     dataType: string;
     tableData: User[]
   };
+
+  export type SearchProps = {
+    onSearch: (searchTerm: string) => void;
+  }
