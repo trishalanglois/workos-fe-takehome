@@ -2,9 +2,10 @@ import { Avatar, Flex, Table, Text } from '@radix-ui/themes';
 
 type DataTableProps = {
   dataType: string;
+  data: any
 };
 
-export default function DataTable({ dataType }: DataTableProps) {
+export default function DataTable({ dataType, data }: DataTableProps) {
   // update avatar fallback to initials of user
   // update avatar src to user img
 
@@ -14,6 +15,8 @@ export default function DataTable({ dataType }: DataTableProps) {
     users: ['User', 'Role', 'Joined', ''],
     roles: ['Placeholder1', 'Placeholder2', 'Placeholder3', '']
   };
+
+  console.log('TL data from BE -->', data)
 
   return (
     <Table.Root variant="surface">

@@ -19,4 +19,3 @@ export default function Home() {
 }
 
 // TODO: Why isn't purple variable working in styles.scss?
-// ghost add to test git test test 
