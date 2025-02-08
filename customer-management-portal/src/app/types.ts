@@ -5,7 +5,7 @@ export type User = {
     last: string,
     photo: string,
     roleId: string,
-    roleName: string,
+    roleName: string | null,
     updatedAt: string
   }
   

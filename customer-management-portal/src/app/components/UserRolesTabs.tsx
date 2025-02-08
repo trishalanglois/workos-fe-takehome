@@ -11,16 +11,19 @@ import { InfoCircledIcon } from '@radix-ui/react-icons';
 
 export default function UserRolesTabs() {
   const [toggleFocus, setToggleFocus] = useState('users');
-  const [tableData, setData] = useState<User[]>([]);
+  const [tableData, setData] = useState<User[] | undefined>([]);
   const [loading, setLoading] = useState(true); // Track loading state
   const [requestError, setRequestError] = useState(false);
-  // const [filteredData, setFilteredData] = useState(tableData);
+  const [filteredData, setFilteredData] = useState(tableData);
 
   const handleSearch = (searchTerm: string) => {
-    const filtered = tableData.filter((item) =>
-      item.first.toLowerCase().includes(searchTerm.toLowerCase())
+    const filtered = tableData?.filter((item) =>
+      Object.values(item)
+        .join(' ') 
+        .toLowerCase()
+        .includes(searchTerm.toLowerCase())
     );
-    return setData(filtered);
+    return setFilteredData(filtered);
   };
 
   // Search functionality
@@ -39,7 +42,7 @@ export default function UserRolesTabs() {
         setData(response);
       } catch (error) {
         setRequestError(true);
-        console.error('Error fetching data:', error); // show error toast here?
+        console.error('Error fetching data:', error);
       } finally {
         setLoading(false);
       }
