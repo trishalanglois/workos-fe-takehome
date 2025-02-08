@@ -1,23 +1,14 @@
 import { Avatar, Flex, Table, Text } from '@radix-ui/themes';
 import { DataTableProps, User } from '../types';
+import { nameGenerator, nameInitialGenerator } from '../utils';
 
-export default function DataTable({ dataType, tableData }: DataTableProps
-) {
-
+export default function DataTable({ dataType, tableData }: DataTableProps) {
   // create objects with user column headers and role column headers to use dynamically. can use bracket notation to target the values
 
   const columnHeaders: Record<string, string[]> = {
     users: ['User', 'Role', 'Joined', ''],
-    roles: ['Placeholder1', 'Placeholder2', 'Placeholder3', '']
+    roles: ['Placeholder1', 'Placeholder2', 'Placeholder3', ''],
   };
-
-  const nameGenerator = (firstName: string, lastName: string) => {
-    return (`${firstName} ${lastName}`)
-  }
-
-  const nameInitialGenerator = (firstName: string, lastName: string) => {
-    return firstName.charAt(0), lastName.charAt(0)
-  }
 
   return (
     <Table.Root variant="surface">
@@ -32,24 +23,26 @@ export default function DataTable({ dataType, tableData }: DataTableProps
         </Table.Row>
       </Table.Header>
       <Table.Body>
-      {tableData.map((user: User, index: number) => (
-        <Table.Row key={index}>
-          <Table.RowHeaderCell>
-            <Flex gap={"2"}>
-              <Avatar
-                size="1"
-                radius="full"
-                src={user.photo || undefined}
-                fallback={user.photo || nameInitialGenerator(user.first, user.last)}
-              />
-              <Text>{nameGenerator(user.first, user.last)}</Text>
-            </Flex>
-          </Table.RowHeaderCell>
-          <Table.Cell>{user.roleId}</Table.Cell>
-          <Table.Cell>{user.createdAt}</Table.Cell>
-          <Table.Cell>Insert Button</Table.Cell>
-        </Table.Row>
-      ))}
+        {tableData.map((user: User, index: number) => (
+          <Table.Row key={index}>
+            <Table.RowHeaderCell>
+              <Flex gap={'2'}>
+                <Avatar
+                  size="1"
+                  radius="full"
+                  src={user.photo || undefined}
+                  fallback={
+                    user.photo || nameInitialGenerator(user.first, user.last)
+                  }
+                />
+                <Text>{nameGenerator(user.first, user.last)}</Text>
+              </Flex>
+            </Table.RowHeaderCell>
+            <Table.Cell>{user.roleId}</Table.Cell>
+            <Table.Cell>{user.createdAt}</Table.Cell>
+            <Table.Cell>Insert Button</Table.Cell>
+          </Table.Row>
+        ))}
 
         {/* <Table.Row>
           <Table.RowHeaderCell>
