@@ -3,24 +3,19 @@ import {
   Button,
   Dialog,
   Flex,
-  HoverCard,
   IconButton,
-  Link,
   Popover,
-  Select,
   Table,
   Text,
-  Tooltip,
 } from '@radix-ui/themes';
 import { DataTableProps, User } from '../types';
 import { formatDate, nameGenerator, nameInitialGenerator } from '../utils';
 import { DotsHorizontalIcon } from '@radix-ui/react-icons';
-import { useState } from 'react';
 
 export default function DataTable({ dataType, tableData }: DataTableProps) {
   const columnHeaders: Record<string, string[]> = {
-    users: ['User', 'Role', 'Joined', ''],
-    roles: ['Placeholder1', 'Placeholder2', 'Placeholder3', ''],
+    user: ['User', 'Role', 'Joined', ''],
+    role: ['Placeholder1', 'Placeholder2', 'Placeholder3', ''],
   };
 
   return (
@@ -64,8 +59,8 @@ export default function DataTable({ dataType, tableData }: DataTableProps) {
                     <Dialog.Root>
                       <Dialog.Trigger>
                         <Flex gap="2" direction="column">
-                          <Text size="2">Add user</Text>
-                          <Text size="2">Delete user</Text>
+                          <Text size="2">Add {dataType}</Text>
+                          <Text size="2">Delete {dataType}</Text>
                         </Flex>
                       </Dialog.Trigger>
 
@@ -73,7 +68,7 @@ export default function DataTable({ dataType, tableData }: DataTableProps) {
                         <Dialog.Title>Feature coming soon!</Dialog.Title>
                         <Dialog.Description size="2" mb="4">
                           Check back in for functionality to add or delete a
-                          user.{' '}
+                          {dataType}.
                         </Dialog.Description>
 
                         <Dialog.Close>

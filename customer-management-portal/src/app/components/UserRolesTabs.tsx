@@ -42,8 +42,6 @@ export default function UserRolesTabs() {
       try {
         const result = await fetchUsersWithRoles();
 
-        console.log('TL init load -->', result);
-
         if (result) {
           const { usersWithRoles, hasError } = result;
 
@@ -84,7 +82,7 @@ export default function UserRolesTabs() {
       </Tabs.List>
       <Flex gap={'var(--space-2)'} justify={'between'} py={'var(--space-5)'}>
         <Search onSearch={handleSearch} />
-        <AccentButton displayText="Add user" />
+        <AccentButton displayText={`Add ${toggleFocus === 'users' ? 'user' : 'role'}`} />
       </Flex>
 
       <RequestError requestError={requestError} />
@@ -103,10 +101,10 @@ export default function UserRolesTabs() {
         {!loading && !emptySearchResults && (
           <Box>
             <Tabs.Content value="users">
-              <DataTable dataType="users" tableData={filteredData} />
+              <DataTable dataType="user" tableData={filteredData} />
             </Tabs.Content>
             <Tabs.Content value="roles">
-              <DataTable dataType="roles" tableData={filteredData} />
+              <DataTable dataType="role" tableData={filteredData} />
             </Tabs.Content>
           </Box>
         )}
