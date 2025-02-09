@@ -13,14 +13,16 @@ import RolesTable from './RolesTable';
 
 export default function UserRolesTabs() {
   const [toggleFocus, setToggleFocus] = useState('users');
-  const [users, setUsers] = useState<User[] | undefined>([]);
-  const [roles, setRoles] = useState<Role[] | undefined>([]);
+  const [users, setUsers] = useState<User[] | []>([]);
+  const [roles, setRoles] = useState<Role[] | []>([]);
   const [loading, setLoading] = useState(true);
   const [requestError, setRequestError] = useState(false);
-  const [filteredData, setFilteredData] = useState<User[] | Role[] | undefined>(
-    users,
-  );
+  const [filteredData, setFilteredData] = useState<User[] | Role[] | []>(users);
   const [emptySearchResults, setEmptySearchResults] = useState(false);
+
+  console.log('TL loading and data -->', loading,
+    filteredData
+  )
 
   const handleSearch = (searchTerm: string) => {
     // clears search input and renders all data
@@ -51,6 +53,7 @@ export default function UserRolesTabs() {
 
   useEffect(() => {
     setLoading(true);
+    setRequestError(false);
 
     const fetchUserData = async () => {
       try {
@@ -58,13 +61,12 @@ export default function UserRolesTabs() {
         if (result) {
           const { usersWithRoles, hasError } = result;
           setUsers(usersWithRoles);
-          setFilteredData(usersWithRoles)
+          setFilteredData(usersWithRoles); // set data for users initially
+          setLoading(false)
           if (hasError) setRequestError(hasError);
         }
       } catch (error) {
         console.error('Error fetching user data:', error);
-      } finally {
-        setLoading(false);
       }
     };
 
@@ -72,26 +74,26 @@ export default function UserRolesTabs() {
       try {
         const result = await fetchRoles();
         setRoles(result?.roles.data);
+        setLoading(false)
       } catch (error) {
         console.log('Error fetching roles:', error);
-      } 
+      }
     };
 
     fetchUserData();
     fetchRoleData();
-    setLoading(false)
   }, []);
 
-  useEffect(() => {
-    setLoading(true);
-    setRequestError(false);
-  
-    const setData = toggleFocus === 'users' ? users : roles;
-    setFilteredData(setData);
-    setLoading(false)
+  // useEffect(() => {
+  //   setLoading(true);
+  //   if (toggleFocus === 'users' && users.length > 0) {
+  //     setFilteredData(users);
+  //   } else if (toggleFocus === 'roles' && roles.length > 0) {
+  //     setFilteredData(roles);
+  //   }
 
-  }, [toggleFocus, users, roles]);
-
+  //   setLoading(false);
+  // }, [toggleFocus, users, roles]);
 
   return (
     <Tabs.Root defaultValue="users">
@@ -121,7 +123,7 @@ export default function UserRolesTabs() {
       <RequestError requestError={requestError} />
 
       <>
-        {loading && (
+        {(loading || filteredData.length === 0) && (
           <Flex justify={'center'}>
             <Spinner size={'3'} loading={loading} />
           </Flex>
@@ -131,7 +133,7 @@ export default function UserRolesTabs() {
           <Text>No results matched your search.</Text>
         )}
 
-        {!loading && !emptySearchResults && filteredData?.length &&  (
+        {!loading && !emptySearchResults && (
           <Box>
             <Tabs.Content value="users">
               <UsersTable users={filteredData as User[]} />

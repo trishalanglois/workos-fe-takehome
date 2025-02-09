@@ -9,11 +9,13 @@ import {
   Text,
 } from '@radix-ui/themes';
 import { UserTableProps, User } from '../types';
-import { formatDate, nameGenerator, nameInitialGenerator } from '../utils';
+import { formatDate, nameGenerator } from '../utils';
 import { DotsHorizontalIcon } from '@radix-ui/react-icons';
 
 export default function UsersTable({ users }: UserTableProps) {
   const columnHeaders: string[] = ['User', 'Role', 'Joined', ''];
+
+  console.log('TL users in component -->', users)
 
   return (
     <Table.Root variant="surface">
@@ -36,7 +38,7 @@ export default function UsersTable({ users }: UserTableProps) {
                   radius="full"
                   src={user.photo || undefined}
                   fallback={
-                    user.photo 
+                    user.photo
                   }
                 />
                 <Text>{nameGenerator(user.first, user.last)}</Text>
