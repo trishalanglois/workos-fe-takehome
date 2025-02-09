@@ -1,9 +1,21 @@
-import { Avatar, Flex, Table, Text } from '@radix-ui/themes';
+import {
+  Avatar,
+  Flex,
+  HoverCard,
+  IconButton,
+  Link,
+  Select,
+  Table,
+  Text,
+  Tooltip,
+} from '@radix-ui/themes';
 import { DataTableProps, User } from '../types';
 import { formatDate, nameGenerator, nameInitialGenerator } from '../utils';
+import { DotsHorizontalIcon } from '@radix-ui/react-icons';
+import { useState } from 'react';
 
 export default function DataTable({ dataType, tableData }: DataTableProps) {
-
+  const [moreButtonClicked, setMoreButtonClicked] = useState(false);
   const columnHeaders: Record<string, string[]> = {
     users: ['User', 'Role', 'Joined', ''],
     roles: ['Placeholder1', 'Placeholder2', 'Placeholder3', ''],
@@ -38,7 +50,25 @@ export default function DataTable({ dataType, tableData }: DataTableProps) {
             </Table.RowHeaderCell>
             <Table.Cell>{user.roleName}</Table.Cell>
             <Table.Cell>{formatDate(user.createdAt)}</Table.Cell>
-            <Table.Cell>Insert Button</Table.Cell>
+            <Table.Cell>
+              <HoverCard.Root>
+                <HoverCard.Trigger>
+                  <IconButton radius="full" className="iconButton">
+                    <DotsHorizontalIcon />
+                  </IconButton>
+                </HoverCard.Trigger>
+                <HoverCard.Content size="2" width={"143px"}>
+                  <Flex gap={'2'} direction={"column"}>
+                    <Text as="div" size="2">
+                      Add user
+                    </Text>
+                    <Text as="div" size="2">
+                      Delete user
+                    </Text>
+                  </Flex>
+                </HoverCard.Content>
+              </HoverCard.Root>
+            </Table.Cell>
           </Table.Row>
         ))}
       </Table.Body>

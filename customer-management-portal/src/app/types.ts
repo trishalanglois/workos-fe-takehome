@@ -17,3 +17,7 @@ export type User = {
   export type SearchProps = {
     onSearch: (searchTerm: string) => void;
   }
+
+  export type RequestErrorProps = {
+    requestError: boolean;
+  }

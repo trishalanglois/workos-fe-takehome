@@ -1,6 +1,6 @@
 'use client';
 
-import { Box, Callout, Flex, Spinner, Tabs } from '@radix-ui/themes';
+import { Box, Text, Flex, Spinner, Tabs } from '@radix-ui/themes';
 import Search from './Search';
 import AccentButton from './AccentButton';
 import DataTable from './DataTable';
@@ -8,7 +8,9 @@ import React, { useEffect, useState } from 'react';
 import { fetchUsersWithRoles } from '../hooks/fetchUsersWithRoles';
 import { User } from '../types';
 import { InfoCircledIcon } from '@radix-ui/react-icons';
+import '../styles.css';
 import { request } from 'http';
+import RequestError from './RequestError';
 
 export default function UserRolesTabs() {
   const [toggleFocus, setToggleFocus] = useState('users');
@@ -20,7 +22,7 @@ export default function UserRolesTabs() {
 
   const handleSearch = (searchTerm: string) => {
     setEmptySearchResults(false);
-    
+
     const filtered = tableData?.filter((item) =>
       Object.values(item)
         .join(' ')
@@ -28,7 +30,9 @@ export default function UserRolesTabs() {
         .includes(searchTerm.toLowerCase()),
     );
 
-    return filtered?.length ? setFilteredData(filtered) : setEmptySearchResults(true);
+    return filtered?.length
+      ? setFilteredData(filtered)
+      : setEmptySearchResults(true);
   };
 
   // fetch data for roles table
@@ -38,13 +42,13 @@ export default function UserRolesTabs() {
       try {
         const result = await fetchUsersWithRoles();
 
-        console.log('TL init load -->', result)
+        console.log('TL init load -->', result);
 
         if (result) {
           const { usersWithRoles, hasError } = result;
 
           setData(usersWithRoles);
-          setFilteredData(usersWithRoles)
+          setFilteredData(usersWithRoles);
 
           if (hasError) {
             setRequestError(hasError);
@@ -83,16 +87,7 @@ export default function UserRolesTabs() {
         <AccentButton displayText="Add user" />
       </Flex>
 
-      {requestError && (
-        <Callout.Root color="red" mb={'5'}>
-          <Callout.Icon>
-            <InfoCircledIcon />
-          </Callout.Icon>
-          <Callout.Text>
-            Some of your information is missing. Please refresh the page.
-          </Callout.Text>
-        </Callout.Root>
-      )}
+      <RequestError requestError={requestError} />
 
       <>
         {loading && (
@@ -102,7 +97,7 @@ export default function UserRolesTabs() {
         )}
 
         {!loading && emptySearchResults && (
-          <p>No results matched your search.</p> // update to Text component
+          <Text>No results matched your search.</Text>
         )}
 
         {!loading && !emptySearchResults && (
