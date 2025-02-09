@@ -1,5 +1,4 @@
 import {
-  Avatar,
   Button,
   Dialog,
   Flex,
@@ -8,21 +7,18 @@ import {
   Table,
   Text,
 } from '@radix-ui/themes';
-import { DataTableProps, User } from '../types';
-import { formatDate, nameGenerator, nameInitialGenerator } from '../utils';
+import { Role, RolesTableProps } from '../types';
+import { formatDate } from '../utils';
 import { DotsHorizontalIcon } from '@radix-ui/react-icons';
 
-export default function DataTable({ dataType, tableData }: DataTableProps) {
-  const columnHeaders: Record<string, string[]> = {
-    user: ['User', 'Role', 'Joined', ''],
-    role: ['Placeholder1', 'Placeholder2', 'Placeholder3', ''],
-  };
+export default function RolesTable({ roles }: RolesTableProps) {
+  const columnHeaders: string[] = ['Name', 'Date Added', 'Description', ''];
 
   return (
     <Table.Root variant="surface">
       <Table.Header>
         <Table.Row>
-          {columnHeaders[dataType].map((column: string) => (
+          {columnHeaders.map((column: string) => (
             <Table.ColumnHeaderCell key={column}>
               {column}
             </Table.ColumnHeaderCell>
@@ -30,23 +26,15 @@ export default function DataTable({ dataType, tableData }: DataTableProps) {
         </Table.Row>
       </Table.Header>
       <Table.Body>
-        {tableData?.map((user: User, index: number) => (
+        {roles?.map((role: Role, index: number) => (
           <Table.Row key={index}>
             <Table.RowHeaderCell>
-              <Flex gap={'2'}>
-                <Avatar
-                  size="1"
-                  radius="full"
-                  src={user.photo || undefined}
-                  fallback={
-                    user.photo || nameInitialGenerator(user.first, user.last)
-                  }
-                />
-                <Text>{nameGenerator(user.first, user.last)}</Text>
-              </Flex>
+              <Text>{role.name}</Text>
             </Table.RowHeaderCell>
-            <Table.Cell>{user.roleName}</Table.Cell>
-            <Table.Cell>{formatDate(user.createdAt)}</Table.Cell>
+            <Table.Cell>{formatDate(role.createdAt)}</Table.Cell>
+            <Table.Cell>
+              <Text>{role.description}</Text>
+            </Table.Cell>
             <Table.Cell>
               <Popover.Root>
                 <Popover.Trigger>
@@ -59,14 +47,15 @@ export default function DataTable({ dataType, tableData }: DataTableProps) {
                     <Dialog.Root>
                       <Dialog.Trigger>
                         <Flex gap="2" direction="column">
-                          <Text size="2">Add {dataType}</Text>
-                          <Text size="2">Delete {dataType}</Text>
+                          <Text size="2">Add role</Text>
+                          <Text size="2">Delete role</Text>
                         </Flex>
                       </Dialog.Trigger>
                       <Dialog.Content maxWidth="450px">
                         <Dialog.Title>Feature coming soon!</Dialog.Title>
                         <Dialog.Description size="2" mb="4">
-                          {`Check back in for functionality to add or delete a ${dataType}`}.
+                          Check back in for functionality to add or delete a
+                          role.
                         </Dialog.Description>
                         <Dialog.Close>
                           <Button>Close</Button>

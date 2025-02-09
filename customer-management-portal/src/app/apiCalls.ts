@@ -16,7 +16,7 @@ const fetchRoleName = async (roleId: string) => {
 };
 
 export const fetchUsersWithRoles = async () => {
-  const queriedData: User[] = [];
+  const usersWithRoles: User[] = [];
   let hasError = false;
 
   try {
@@ -27,7 +27,7 @@ export const fetchUsersWithRoles = async () => {
       async (user: User) => {
         try {
           const roleName = await fetchRoleName(user.roleId);
-          queriedData.push({ ...user, roleName });
+          usersWithRoles.push({ ...user, roleName });
         } catch (error) {
           if (axios.isAxiosError(error) && error.response?.status === 500) {
             console.error('Error fetching role for user:', user, error);
@@ -35,7 +35,7 @@ export const fetchUsersWithRoles = async () => {
             console.error('Unexpected error:', error);
           }
           hasError = true
-          queriedData.push({
+          usersWithRoles.push({
             ...user,
             roleName: null,
           });
@@ -45,17 +45,18 @@ export const fetchUsersWithRoles = async () => {
 
     await Promise.all(usersWithRolesPromises);
 
-    return {queriedData, hasError};
+    return {usersWithRoles, hasError};
   } catch (error) {
     if (axios.isAxiosError(error)) {
-      return { queriedData: [], hasError: true };    }
+      return { usersWithRoles: [], hasError: true };    }
   }
 };
 
 export const fetchRoles = async () => {
   try {
     const response = await axios.get(ROLES_API_URL);
-    return response.data;
+
+    return {roles: response.data};
   } catch (error) {
     if (axios.isAxiosError(error)) {
       throw error;

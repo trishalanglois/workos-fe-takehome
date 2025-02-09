@@ -9,10 +9,22 @@ export type User = {
     updatedAt: string
   }
   
-  export type DataTableProps = {
-    dataType: string;
-    tableData: User[] | undefined
+  export type Role = {
+    createdAt: string,
+    description: string,
+    id: string,
+    isDefault: boolean,
+    name: string,
+    updatedAt: string,
+  }
+  
+  export type UserTableProps = {
+    users: User[] | undefined
   };
+
+  export type RolesTableProps = {
+    roles: Role[] | undefined
+  }
 
   export type SearchProps = {
     onSearch: (searchTerm: string) => void;
