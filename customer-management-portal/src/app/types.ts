@@ -11,7 +11,7 @@ export type User = {
   
   export type DataTableProps = {
     dataType: string;
-    tableData: User[]
+    tableData: User[] | undefined
   };
 
   export type SearchProps = {

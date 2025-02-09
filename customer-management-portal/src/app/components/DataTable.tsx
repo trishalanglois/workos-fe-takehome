@@ -21,7 +21,7 @@ export default function DataTable({ dataType, tableData }: DataTableProps) {
         </Table.Row>
       </Table.Header>
       <Table.Body>
-        {tableData.map((user: User, index: number) => (
+        {tableData?.map((user: User, index: number) => (
           <Table.Row key={index}>
             <Table.RowHeaderCell>
               <Flex gap={'2'}>

@@ -24,6 +24,7 @@ export default function UserRolesTabs() {
         .toLowerCase()
         .includes(searchTerm.toLowerCase())
     );
+
     return setFilteredData(filtered);
   };
 
@@ -96,10 +97,10 @@ export default function UserRolesTabs() {
       ) : (
         <Box>
           <Tabs.Content value="users">
-            <DataTable dataType="users" tableData={tableData} />
+            <DataTable dataType="users" tableData={filteredData} />
           </Tabs.Content>
           <Tabs.Content value="roles">
-            <DataTable dataType="roles" tableData={tableData} />
+            <DataTable dataType="roles" tableData={filteredData} />
           </Tabs.Content>
         </Box>
       )}
