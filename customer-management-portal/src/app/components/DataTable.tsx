@@ -1,5 +1,7 @@
 import {
   Avatar,
+  Button,
+  Dialog,
   Flex,
   HoverCard,
   IconButton,
@@ -16,7 +18,6 @@ import { DotsHorizontalIcon } from '@radix-ui/react-icons';
 import { useState } from 'react';
 
 export default function DataTable({ dataType, tableData }: DataTableProps) {
-  const [moreButtonClicked, setMoreButtonClicked] = useState(false);
   const columnHeaders: Record<string, string[]> = {
     users: ['User', 'Role', 'Joined', ''],
     roles: ['Placeholder1', 'Placeholder2', 'Placeholder3', ''],
@@ -60,10 +61,26 @@ export default function DataTable({ dataType, tableData }: DataTableProps) {
                 </Popover.Trigger>
                 <Popover.Content width="143px">
                   <Popover.Close>
-                    <Flex gap="2" direction="column">
-                      <Text size="2">Add user</Text>
-                      <Text size="2">Delete user</Text>
-                    </Flex>
+                    <Dialog.Root>
+                      <Dialog.Trigger>
+                        <Flex gap="2" direction="column">
+                          <Text size="2">Add user</Text>
+                          <Text size="2">Delete user</Text>
+                        </Flex>
+                      </Dialog.Trigger>
+
+                      <Dialog.Content maxWidth="450px">
+                        <Dialog.Title>Feature coming soon!</Dialog.Title>
+                        <Dialog.Description size="2" mb="4">
+                          Check back in for functionality to add or delete a
+                          user.{' '}
+                        </Dialog.Description>
+
+                        <Dialog.Close>
+                          <Button>Close</Button>
+                        </Dialog.Close>
+                      </Dialog.Content>
+                    </Dialog.Root>
                   </Popover.Close>
                 </Popover.Content>
               </Popover.Root>
