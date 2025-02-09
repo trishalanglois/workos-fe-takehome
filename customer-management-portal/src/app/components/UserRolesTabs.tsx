@@ -15,12 +15,9 @@ export default function UserRolesTabs() {
   const [toggleFocus, setToggleFocus] = useState('users');
   const [users, setUsers] = useState<User[] | []>([]);
   const [roles, setRoles] = useState<Role[] | []>([]);
-  const [loading, setLoading] = useState(true);
   const [requestError, setRequestError] = useState(false);
   const [filteredData, setFilteredData] = useState<User[] | Role[] | []>(users);
   const [emptySearchResults, setEmptySearchResults] = useState(false);
-
-  console.log('TL loading and data -->', loading, filteredData);
 
   const handleSearch = (searchTerm: string) => {
     // clears search input and renders all data
@@ -47,7 +44,6 @@ export default function UserRolesTabs() {
   };
 
   useEffect(() => {
-    setLoading(true);
     setRequestError(false);
 
     const fetchUserData = async () => {
@@ -57,22 +53,20 @@ export default function UserRolesTabs() {
           const { usersWithRoles, hasError } = result;
           setUsers(usersWithRoles);
           setFilteredData(usersWithRoles); // set data for users initially
-          setLoading(false);
           if (hasError) setRequestError(hasError);
         }
       } catch (error) {
         console.error('Error fetching user data:', error);
-      }
+      } 
     };
 
     const fetchRoleData = async () => {
       try {
         const result = await fetchRoles();
         setRoles(result?.roles.data);
-        setLoading(false);
       } catch (error) {
         console.log('Error fetching roles:', error);
-      }
+      } 
     };
 
     fetchUserData();
@@ -80,15 +74,13 @@ export default function UserRolesTabs() {
   }, []);
 
   useEffect(() => {
-    setLoading(true);
-  
+
     if (toggleFocus === 'users') {
       setFilteredData(users);
     } else {
       setFilteredData(roles);
     }
-  
-    setLoading(false);
+
   }, [toggleFocus, users, roles]);
 
   return (
@@ -116,30 +108,24 @@ export default function UserRolesTabs() {
         />
       </Flex>
 
-      <RequestError requestError={requestError} />
+      {toggleFocus === 'users' && <RequestError requestError={requestError} />}
 
-      <>
-        {(loading || filteredData.length === 0) && (
-          <Flex justify={'center'}>
-            <Spinner size={'3'} loading={loading} />
-          </Flex>
-        )}
-
-        {!loading && emptySearchResults && (
-          <Text>No results matched your search.</Text>
-        )}
-
-        {!loading && !emptySearchResults && (
-          <Box>
-            <Tabs.Content value="users">
-              {toggleFocus === 'users' && <UsersTable users={filteredData as User[]} />}
-            </Tabs.Content>
-            <Tabs.Content value="roles">
-              {toggleFocus === 'roles' && <RolesTable roles={filteredData as Role[]} />}
-            </Tabs.Content>
-          </Box>
-        )}
-      </>
+      {emptySearchResults ? (
+        <Text>No results matched your search.</Text>
+      ) : (
+        <Box>
+          <Tabs.Content value="users">
+            {toggleFocus === 'users' && (
+              <UsersTable users={filteredData as User[]} />
+            )}
+          </Tabs.Content>
+          <Tabs.Content value="roles">
+            {toggleFocus === 'roles' && (
+              <RolesTable roles={filteredData as Role[]} />
+            )}
+          </Tabs.Content>
+        </Box>
+      )}
     </Tabs.Root>
   );
 }

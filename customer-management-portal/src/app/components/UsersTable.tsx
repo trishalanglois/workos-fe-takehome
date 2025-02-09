@@ -5,6 +5,7 @@ import {
   Flex,
   IconButton,
   Popover,
+  Spinner,
   Table,
   Text,
 } from '@radix-ui/themes';
@@ -15,7 +16,13 @@ import { DotsHorizontalIcon } from '@radix-ui/react-icons';
 export default function UsersTable({ users }: UserTableProps) {
   const columnHeaders: string[] = ['User', 'Role', 'Joined', ''];
 
-  console.log('TL users in component -->', users)
+  if (users?.length === 0) {
+    return (
+      <Flex justify={'center'}>
+        <Spinner size={'3'} />
+      </Flex>
+    );
+  }
 
   return (
     <Table.Root variant="surface">
@@ -37,9 +44,7 @@ export default function UsersTable({ users }: UserTableProps) {
                   size="1"
                   radius="full"
                   src={user.photo || undefined}
-                  fallback={
-                    user.photo
-                  }
+                  fallback={user.photo}
                 />
                 <Text>{nameGenerator(user.first, user.last)}</Text>
               </Flex>
@@ -65,8 +70,8 @@ export default function UsersTable({ users }: UserTableProps) {
                       <Dialog.Content maxWidth="450px">
                         <Dialog.Title>Feature coming soon!</Dialog.Title>
                         <Dialog.Description size="2" mb="4">
-                          Check back in for functionality to add or delete a user
-                          .
+                          Check back in for functionality to add or delete a
+                          user .
                         </Dialog.Description>
                         <Dialog.Close>
                           <Button>Close</Button>
