@@ -5,7 +5,7 @@ import Search from './Search';
 import AccentButton from './AccentButton';
 import DataTable from './DataTable';
 import React, { useEffect, useState } from 'react';
-import { fetchUsersWithRoles } from '../hooks/fetchUsersWithRoles';
+import { fetchRoles, fetchUsersWithRoles } from '../apiCalls';
 import { User } from '../types';
 import { InfoCircledIcon } from '@radix-ui/react-icons';
 import '../styles.css';
@@ -38,15 +38,20 @@ export default function UserRolesTabs() {
   // fetch data for roles table
 
   useEffect(() => {
+    setLoading(true)
     const fetchTableData = async () => {
+      let result
       try {
-        const result = await fetchUsersWithRoles();
-
+        if (toggleFocus === 'roles') {
+          result = await fetchRoles() 
+        } else {
+          result = await fetchUsersWithRoles();
+        }
         if (result) {
-          const { usersWithRoles, hasError } = result;
+          const { queriedData, hasError } = result;
 
-          setData(usersWithRoles);
-          setFilteredData(usersWithRoles);
+          setData(queriedData);
+          setFilteredData(queriedData);
 
           if (hasError) {
             setRequestError(hasError);
@@ -60,7 +65,7 @@ export default function UserRolesTabs() {
     };
 
     fetchTableData();
-  }, []);
+  }, [toggleFocus]);
 
   return (
     <Tabs.Root defaultValue="users">

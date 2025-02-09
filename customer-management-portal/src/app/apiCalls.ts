@@ -1,12 +1,12 @@
 import axios from 'axios';
-import { User } from '../types';
+import { User } from './types';
 
 const USERS_API_URL = 'http://localhost:3002/users';
-const ROLE_API_URL = 'http://localhost:3002/roles';
+const ROLES_API_URL = 'http://localhost:3002/roles';
 
 const fetchRoleName = async (roleId: string) => {
   try {
-    const response = await axios.get(`${ROLE_API_URL}/${roleId}`);
+    const response = await axios.get(`${ROLES_API_URL}/${roleId}`);
     return response.data.name;
   } catch (error) {
     if (axios.isAxiosError(error)) {
@@ -16,7 +16,7 @@ const fetchRoleName = async (roleId: string) => {
 };
 
 export const fetchUsersWithRoles = async () => {
-  const usersWithRoles: User[] = [];
+  const queriedData: User[] = [];
   let hasError = false;
 
   try {
@@ -27,7 +27,7 @@ export const fetchUsersWithRoles = async () => {
       async (user: User) => {
         try {
           const roleName = await fetchRoleName(user.roleId);
-          usersWithRoles.push({ ...user, roleName });
+          queriedData.push({ ...user, roleName });
         } catch (error) {
           if (axios.isAxiosError(error) && error.response?.status === 500) {
             console.error('Error fetching role for user:', user, error);
@@ -35,7 +35,7 @@ export const fetchUsersWithRoles = async () => {
             console.error('Unexpected error:', error);
           }
           hasError = true
-          usersWithRoles.push({
+          queriedData.push({
             ...user,
             roleName: null,
           });
@@ -45,9 +45,20 @@ export const fetchUsersWithRoles = async () => {
 
     await Promise.all(usersWithRolesPromises);
 
-    return {usersWithRoles, hasError};
+    return {queriedData, hasError};
   } catch (error) {
     if (axios.isAxiosError(error)) {
-      return { usersWithRoles: [], hasError: true };    }
+      return { queriedData: [], hasError: true };    }
+  }
+};
+
+export const fetchRoles = async () => {
+  try {
+    const response = await axios.get(ROLES_API_URL);
+    return response.data;
+  } catch (error) {
+    if (axios.isAxiosError(error)) {
+      throw error;
+    }
   }
 };

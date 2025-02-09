@@ -63,14 +63,11 @@ export default function DataTable({ dataType, tableData }: DataTableProps) {
                           <Text size="2">Delete {dataType}</Text>
                         </Flex>
                       </Dialog.Trigger>
-
                       <Dialog.Content maxWidth="450px">
                         <Dialog.Title>Feature coming soon!</Dialog.Title>
                         <Dialog.Description size="2" mb="4">
-                          Check back in for functionality to add or delete a
-                          {dataType}.
+                          {`Check back in for functionality to add or delete a ${dataType}`}.
                         </Dialog.Description>
-
                         <Dialog.Close>
                           <Button>Close</Button>
                         </Dialog.Close>
