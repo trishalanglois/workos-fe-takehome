@@ -4,6 +4,7 @@ import {
   HoverCard,
   IconButton,
   Link,
+  Popover,
   Select,
   Table,
   Text,
@@ -51,23 +52,21 @@ export default function DataTable({ dataType, tableData }: DataTableProps) {
             <Table.Cell>{user.roleName}</Table.Cell>
             <Table.Cell>{formatDate(user.createdAt)}</Table.Cell>
             <Table.Cell>
-              <HoverCard.Root>
-                <HoverCard.Trigger>
+              <Popover.Root>
+                <Popover.Trigger>
                   <IconButton radius="full" className="iconButton">
                     <DotsHorizontalIcon />
                   </IconButton>
-                </HoverCard.Trigger>
-                <HoverCard.Content size="2" width={"143px"}>
-                  <Flex gap={'2'} direction={"column"}>
-                    <Text as="div" size="2">
-                      Add user
-                    </Text>
-                    <Text as="div" size="2">
-                      Delete user
-                    </Text>
-                  </Flex>
-                </HoverCard.Content>
-              </HoverCard.Root>
+                </Popover.Trigger>
+                <Popover.Content width="143px">
+                  <Popover.Close>
+                    <Flex gap="2" direction="column">
+                      <Text size="2">Add user</Text>
+                      <Text size="2">Delete user</Text>
+                    </Flex>
+                  </Popover.Close>
+                </Popover.Content>
+              </Popover.Root>
             </Table.Cell>
           </Table.Row>
         ))}
