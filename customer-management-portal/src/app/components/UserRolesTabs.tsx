@@ -19,6 +19,8 @@ export default function UserRolesTabs() {
   const [emptySearchResults, setEmptySearchResults] = useState(false);
 
   const handleSearch = (searchTerm: string) => {
+    setEmptySearchResults(false);
+    
     const filtered = tableData?.filter((item) =>
       Object.values(item)
         .join(' ')
