@@ -26,7 +26,7 @@ export default function UserRolesTabs() {
         .includes(searchTerm.toLowerCase()),
     );
 
-    return filtered ? setFilteredData(filtered) : setEmptySearchResults(true);
+    return filtered?.length ? setFilteredData(filtered) : setEmptySearchResults(true);
   };
 
   // fetch data for roles table
