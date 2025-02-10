@@ -3,7 +3,7 @@ import { TextField } from '@radix-ui/themes';
 import { useState } from 'react';
 import { SearchProps } from '../types';
 
-export default function Search({onSearch}: SearchProps) {
+export default function Search({ onSearch }: SearchProps) {
   const [inputValue, setInputValue] = useState('');
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {

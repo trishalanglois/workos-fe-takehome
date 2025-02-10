@@ -1,5 +1,3 @@
-export default function Roles(){
-  return (
-    <>Roles!</>
-  )
+export default function Roles() {
+  return <>Roles!</>;
 }

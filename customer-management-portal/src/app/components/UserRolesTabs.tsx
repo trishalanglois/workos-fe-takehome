@@ -34,7 +34,7 @@ export default function UserRolesTabs() {
       // Search entire object for match
       Object.values(item)
         .map((value) => String(value).toLowerCase())
-        .some((value) => value.includes(lowerSearchTerm)),
+        .some((value) => value.includes(lowerSearchTerm))
     );
 
     if (filtered && filtered.length > 0) {
@@ -59,7 +59,7 @@ export default function UserRolesTabs() {
         }
       } catch (error) {
         console.error('Error fetching user data:', error);
-      } 
+      }
     };
 
     const fetchRoleData = async () => {
@@ -68,7 +68,7 @@ export default function UserRolesTabs() {
         setRoles(result?.roles.data);
       } catch (error) {
         console.log('Error fetching roles:', error);
-      } 
+      }
     };
 
     fetchUserData();
