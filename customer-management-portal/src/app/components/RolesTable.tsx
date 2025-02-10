@@ -7,8 +7,8 @@ import {
   Table,
   Text,
 } from '@radix-ui/themes';
-import { Role, RolesTableProps } from '../../types';
-import { formatDate } from '../../utils';
+import { Role, RolesTableProps } from '../types';
+import { formatDate } from '../utils';
 import { DotsHorizontalIcon } from '@radix-ui/react-icons';
 
 export default function RolesTable({ roles }: RolesTableProps) {

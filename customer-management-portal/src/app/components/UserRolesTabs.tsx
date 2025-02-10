@@ -1,15 +1,15 @@
 'use client';
 
 import { Box, Text, Flex, Tabs } from '@radix-ui/themes';
-import AccentButton from '../AccentButton';
+import AccentButton from './AccentButton';
 import React, { useEffect, useState } from 'react';
-import { fetchRoles, fetchUsersWithRoles } from '../../apiCalls';
-import { Role, User } from '../../types';
-import '../../styles.css';
-import RequestError from '../RequestError';
-import UsersTable from '../UsersTable';
-import RolesTable from '../RolesTable';
-import Search from '../Search';
+import { fetchRoles, fetchUsersWithRoles } from '../apiCalls';
+import { Role, User } from '../types';
+import '../styles.css';
+import RequestError from './RequestError';
+import UsersTable from './UsersTable';
+import RolesTable from './RolesTable';
+import Search from './Search';
 
 export default function UserRolesTabs() {
   const [toggleFocus, setToggleFocus] = useState('users');

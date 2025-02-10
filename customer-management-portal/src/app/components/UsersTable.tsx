@@ -9,8 +9,8 @@ import {
   Table,
   Text,
 } from '@radix-ui/themes';
-import { UserTableProps, User } from '../../types';
-import { formatDate, nameGenerator } from '../../utils';
+import { UserTableProps, User } from '../types';
+import { formatDate, nameGenerator } from '../utils';
 import { DotsHorizontalIcon } from '@radix-ui/react-icons';
 
 export default function UsersTable({ users }: UserTableProps) {
