@@ -1,6 +1,6 @@
 'use client';
 
-import { Box, Text, Flex, Spinner, Tabs } from '@radix-ui/themes';
+import { Box, Text, Flex, Tabs } from '@radix-ui/themes';
 import Search from './Search';
 import AccentButton from './AccentButton';
 import React, { useEffect, useState } from 'react';
@@ -31,6 +31,7 @@ export default function UserRolesTabs() {
     const sourceData = toggleFocus === 'users' ? users : roles;
 
     const filtered = sourceData?.filter((item) =>
+      // Search entire object for match
       Object.values(item)
         .map((value) => String(value).toLowerCase())
         .some((value) => value.includes(lowerSearchTerm)),
@@ -44,16 +45,17 @@ export default function UserRolesTabs() {
   };
 
   useEffect(() => {
-    setRequestError(false);
-
     const fetchUserData = async () => {
       try {
         const result = await fetchUsersWithRoles();
         if (result) {
           const { usersWithRoles, hasError } = result;
           setUsers(usersWithRoles);
-          setFilteredData(usersWithRoles); // set data for users initially
-          if (hasError) setRequestError(hasError);
+          setFilteredData(usersWithRoles); // set data for initial table render
+
+          if (hasError) {
+            setRequestError(hasError);
+          }
         }
       } catch (error) {
         console.error('Error fetching user data:', error);
@@ -74,13 +76,11 @@ export default function UserRolesTabs() {
   }, []);
 
   useEffect(() => {
-
     if (toggleFocus === 'users') {
       setFilteredData(users);
     } else {
       setFilteredData(roles);
     }
-
   }, [toggleFocus, users, roles]);
 
   return (

@@ -55,7 +55,7 @@ export const fetchUsersWithRoles = async () => {
 export const fetchRoles = async () => {
   try {
     const response = await axios.get(ROLES_API_URL);
-
+    
     return {roles: response.data};
   } catch (error) {
     if (axios.isAxiosError(error)) {
