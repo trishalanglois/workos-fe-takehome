@@ -39,3 +39,11 @@ There were many additional enhancements and features I would be excited to make 
 3. Table footer and pagination for users
 4. Add fallback for avatar image of user's initials
 5. Add routing: `/dashboard` as landing page, and then appending `/users` or `/roles`
+
+## Learnings
+_NextJS_
+Initially, I was very excited to create my first small-scale NextJS app. In hindsight, if I were to do this takehome again, I would stick with vanilla ReactJS. 
+The biggest feature I was excited about with NextJS was the server side components and increased performance, especially considering the speed variants as factors in this project. _But then._ Due to the toggle interaction on the table, my main component where I did the BE queries needed to be a client-rendered component, thus negating the benefit of NextJS' server-side rendering. I was a few hours in at this point so continued down this path, but it also later caused environment issues with setting up Jest. All in all, a simpler, lighterweight solution would have been more appropriate for this exercise. The more you know!
+
+_PRs_
+Users are unable to review and merge their own PRs on GitHub. Initially, I started development using a typical feature branch approach, but opted for committing straight to main after learning that PRs were not merge-able. I believe thorough PRs are a crucial documentation step, however, so I wanted to note that this is an aytpical development pattern for me.
