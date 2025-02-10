@@ -17,5 +17,3 @@ export default function Home() {
     </Theme>
   );
 }
-
-// TODO: Why isn't purple variable working in styles.scss?

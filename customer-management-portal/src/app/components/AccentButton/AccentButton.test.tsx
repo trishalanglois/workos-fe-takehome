@@ -1,7 +1,7 @@
 
 import React from "react";
 import { render, screen } from "@testing-library/react";
-import AccentButton from "./AccentButton";
+import AccentButton from ".";
 import '@testing-library/jest-dom';
 
 
